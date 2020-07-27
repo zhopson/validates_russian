@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 describe InnFormatValidator do
   before(:all) do
@@ -6,8 +8,9 @@ describe InnFormatValidator do
     TestModel.validates(:field, inn_format: true)
   end
 
-  it 'should be valid for valid values' do
+  it "should be valid for valid values" do
     valid_inns = %w{
+      840300159261
       183501166447
       341800950695
       470313747100
@@ -26,7 +29,7 @@ describe InnFormatValidator do
     end
   end
 
-  it 'should not be valid for invalid values' do
+  it "should not be valid for invalid values" do
     invalid_inns = %w(
       #ffff
       orange-duck
@@ -35,7 +38,7 @@ describe InnFormatValidator do
       epics
       1234567890
       123456789101
-    ).push('', ' ', nil)
+    ).push("", " ", nil)
 
     invalid_inns.each do |inn|
       expect(TestModel.new(field: inn)).to_not be_valid

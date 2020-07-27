@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class InnFormatValidator < ValidatesRussian::Validator
   validates_using do |inn|
     next false unless ValidatesRussian::REGION_NUMBERS.include?(inn[0..1])
-    next false unless inn =~ /^\d+$/
+    next false unless /^\d+$/.match?(inn)
 
     inn = inn.split(//).map(&:to_i)
 
@@ -13,13 +15,13 @@ class InnFormatValidator < ValidatesRussian::Validator
   end
 
   private
+    def self.calc(pp, inn)
+      c = pp.each_with_index.inject(0) { |s, p| s + p[0] * inn[p[1]] } % 11 % 10
+      c
+    end
 
-  def self.calc(p, inn)
-    p.each_with_index.inject(0){ |s, p| s + p[0] * inn[p[1]] } % 11 % 10
-  end
-
-  P10 = [2, 4, 10, 3, 5, 9, 4, 6, 8]
-  P11 = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8]
-  P12 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8]
-  private_constant :P10, :P11, :P12
+    P10 = [2, 4, 10, 3, 5, 9, 4, 6, 8, 0]
+    P11 = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0]
+    P12 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0]
+    private_constant :P10, :P11, :P12
 end
