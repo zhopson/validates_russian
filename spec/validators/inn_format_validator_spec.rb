@@ -10,6 +10,7 @@ describe InnFormatValidator do
 
   it "should be valid for valid values" do
     valid_inns = %w{
+      9731039472
       840300159261
       183501166447
       341800950695

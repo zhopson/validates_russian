@@ -16,12 +16,11 @@ class InnFormatValidator < ValidatesRussian::Validator
 
   private
     def self.calc(pp, inn)
-      c = pp.each_with_index.inject(0) { |s, p| s + p[0] * inn[p[1]] } % 11 % 10
-      c
+      pp.each_with_index.inject(0) { |s, p| s + p[0] * inn[p[1]] } % 11 % 10
     end
 
-    P10 = [2, 4, 10, 3, 5, 9, 4, 6, 8, 0]
-    P11 = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0]
-    P12 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0]
+    P10 = [2, 4, 10, 3, 5, 9, 4, 6, 8]
+    P11 = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8]
+    P12 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8]
     private_constant :P10, :P11, :P12
 end
